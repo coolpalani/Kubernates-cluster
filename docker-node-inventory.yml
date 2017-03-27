@@ -1,0 +1,13 @@
+# Kubernates Cluster inventory
+docker1 ansible_ssh_host=10.x.x.201
+docker2 ansible_ssh_host=10.x.x.202
+docker3 ansible_ssh_host=10.x.x.203
+
+[docker-cluster-nodes]
+docker1
+docker2
+docker3
+
+[all:vars]
+ansible_ssh_user=<user>
+ansible_ssh_pass=<password>

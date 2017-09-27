@@ -1,0 +1,10 @@
+---
+
+- name: Add worker node to cluster
+  script: /tmp/k8s-join.sh
+  register: add_node
+  ignore_errors: false
+
+- debug:
+    msg: "Get added node status from kubernetes master!"
+  when: add_node | succeeded

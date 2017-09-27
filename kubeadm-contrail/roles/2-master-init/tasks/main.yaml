@@ -1,0 +1,4 @@
+---
+
+- include: 1-kubeadm-init.yaml
+- include: 2-kubectl-setup.yaml

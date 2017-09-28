@@ -1,4 +1,6 @@
 ---
 
-- name: List all nodes
-  command: kubectl get nodes -
+- include: 1-nginx-deployment.yaml
+#- include: smoke-test.yaml
+#- include: update-haproxy-nginx-app.yaml
+#- include: get-nginx-page.yaml

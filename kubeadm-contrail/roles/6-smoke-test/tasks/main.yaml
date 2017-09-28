@@ -1,0 +1,4 @@
+---
+
+- name: List all nodes
+  command: kubectl get nodes -

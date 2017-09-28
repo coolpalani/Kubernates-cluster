@@ -3,7 +3,7 @@
 - name: Check if any existing kubernetes pod running
   shell: docker ps |grep -i kube
   register: existing_pod_status
-  ignore_errors: false
+  ignore_errors: true
 
 - debug:
     msg: "Did not find any existing kubernetes pod. Kubeadm will Initialize this system as master!"
@@ -60,3 +60,7 @@
   file:
     path: /tmp/k8s-join.sh
     state: absent
+
+- include: 2-kubectl-setup.yaml
+  when: (kubeadm_init | succeeded) and
+        (token_file.stat.path is defined)

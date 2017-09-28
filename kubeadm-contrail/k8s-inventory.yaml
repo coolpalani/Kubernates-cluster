@@ -1,7 +1,7 @@
 #localhost ansible_connectio=local
 
 # KVM office lab VMs
-k8s-master ansible_ssh_host=10.71.154.62
+k8s-master ansible_ssh_host=10.71.154.60
 k8s-worker1 ansible_ssh_host=10.71.154.63
 
 [all-k8s-hosts]

@@ -1,5 +1,6 @@
 ---
 
+# this file is called in task1
 - name: Create .kube directory in user's home directory
   file:
     path: ~/.kube
@@ -14,11 +15,35 @@
   when: kube_home_dir | succeeded
   ignore_errors: false
 
+- name: Waiting for k8s pods to get initialized successfully
+  script: pods-waiting-check.sh
+  register: pod_script_check
+  when: kube_home_dir | succeeded
+  ignore_errors: false
+
+#- name: Waiting for pods to get initialized successfully
+#  wait_for:
+#    path: /tmp/pod-status-check.txt
+#    state: absent
+#  register: wait_to_remove_checkfile
+#  when: pod_script_check | succeeded
+#  ignore_errors: false
+
 - name: Get pods status
   shell: kubectl get pods -n kube-system
   register: kube_system_pods
-  when: kube_conf | succeeded
-  ignore_errors: false
+  when: (kube_conf | succeeded) and
+        (pod_script_check | succeeded)
+  ignore_errors: true
+
 - debug:
     var: kube_system_pods.stdout
-  when: kube_conf | succeeded
+  when: (kube_conf | succeeded) and
+        (kube_system_pods | succeeded)
+  ignore_errors: true
+
+- debug:
+    msg: "Kubernetes master has been deployed successfully!"
+  when: (kube_conf | succeeded) and
+        (kube_system_pods | succeeded)
+  ignore_errors: true

@@ -2,7 +2,7 @@
 # Define load balancer DNS name or IP address in KUBERNETES_PUBLIC_ADDRESS variable
 
 
-k8s_master_ip: 10.71.154.62
+k8s_master_ip: 10.71.154.60
 k8s_master_hostname: k8s-master
 
 k8s_worker1_ip: 10.71.154.63

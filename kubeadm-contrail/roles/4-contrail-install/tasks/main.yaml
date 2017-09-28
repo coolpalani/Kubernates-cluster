@@ -31,11 +31,25 @@
   when: contrail_yaml | succeeded
   ignore_errors: false
 
+- name: Waiting for contaril pods to get initialized successfully
+  script: pods-waiting-check.sh
+  register: pod_script_check
+  when: deploy_contrail | succeeded
+  ignore_errors: false
+
 - name: Get kube-system pods
   shell: kubectl get pods -n kube-system
   register: get_pods
-  when: deploy_contrail | succeeded
+  when: (deploy_contrail | succeeded) and
+        (pod_script_check | succeeded)
   ignore_errors: false
+
 - debug:
     var: get_pods.stdout
-  when: deploy_contrail | succeeded
+  when: (deploy_contrail | succeeded) and
+        (pod_script_check | succeeded)
+
+- debug:
+    msg: "Contrail pods has been deployed successfully!!!"
+  when: (deploy_contrail | succeeded) and
+        (pod_script_check | succeeded)

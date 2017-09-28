@@ -6,5 +6,5 @@
   ignore_errors: false
 
 - debug:
-    msg: "Get added node status from kubernetes master!"
+    msg: "Node got added successfully. Get added node status from kubernetes master!"
   when: add_node | succeeded

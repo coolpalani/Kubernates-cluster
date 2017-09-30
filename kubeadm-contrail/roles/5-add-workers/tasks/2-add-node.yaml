@@ -5,15 +5,3 @@
   script: /tmp/k8s-join.sh
   register: add_node
   ignore_errors: false
-
-- name: Waiting for node to become Ready
-  script: nodes-waiting-check.sh
-  register: node_check_script
-  when: add_node | succeeded
-  ignore_errors: false
-
-- debug:
-    msg: "Nodes got added successfully!!!"
-  when: (add_node | succeeded) and
-        (node_check_script | succeeded)
-  ignore_errors: true

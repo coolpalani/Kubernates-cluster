@@ -21,14 +21,6 @@
   when: kube_home_dir | succeeded
   ignore_errors: false
 
-#- name: Waiting for pods to get initialized successfully
-#  wait_for:
-#    path: /tmp/pod-status-check.txt
-#    state: absent
-#  register: wait_to_remove_checkfile
-#  when: pod_script_check | succeeded
-#  ignore_errors: false
-
 - name: Get pods status
   shell: kubectl get pods -n kube-system
   register: kube_system_pods
@@ -44,6 +36,12 @@
 
 - debug:
     msg: "Kubernetes master has been deployed successfully!"
+  when: (kube_conf | succeeded) and
+        (kube_system_pods | succeeded)
+  ignore_errors: true
+
+- debug:
+    msg: "Note: kube-dns will be initialized after pod networks."
   when: (kube_conf | succeeded) and
         (kube_system_pods | succeeded)
   ignore_errors: true

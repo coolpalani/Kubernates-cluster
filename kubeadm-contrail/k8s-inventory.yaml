@@ -10,7 +10,7 @@ k8s-master
 k8s-worker1
 k8s-worker2
 
-[k8s-masters]
+[k8s-master]
 k8s-master
 
 [k8s-workers]

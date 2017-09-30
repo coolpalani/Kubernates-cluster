@@ -8,23 +8,23 @@
   roles:
     - 1-k8s-pkgs
 
-- hosts: k8s-masters
+- hosts: k8s-master
   vars_files:
     - group_vars/all
   roles:
     - 2-master-init
 
-- hosts: k8s-masters
+- hosts: k8s-master
   vars_files:
     - group_vars/all
   roles:
-    - 3-patch-kube-dns
+    - 3-contrail-install
 
-- hosts: k8s-masters
+- hosts: k8s-master
   vars_files:
     - group_vars/all
   roles:
-    - 4-contrail-install
+    - 4-patch-kube-dns
 
 - hosts: k8s-workers
   vars_files:
@@ -32,8 +32,8 @@
   roles:
     - 5-add-workers
 
-- hosts: k8s-masters
+- hosts: k8s-master
   vars_files:
     - group_vars/all
   roles:
-    - 6-smoke-test
+    - 6-nodes-status

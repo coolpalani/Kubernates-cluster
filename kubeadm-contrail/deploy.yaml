@@ -18,22 +18,28 @@
   vars_files:
     - group_vars/all
   roles:
-    - 3-contrail-install
+    - 3-kubelet-cni-fix
 
 - hosts: k8s-master
   vars_files:
     - group_vars/all
   roles:
-    - 4-patch-kube-dns
+    - 4-contrail-install
+
+- hosts: k8s-master
+  vars_files:
+    - group_vars/all
+  roles:
+    - 5-patch-kube-dns
 
 - hosts: k8s-workers
   vars_files:
     - group_vars/all
   roles:
-    - 5-add-workers
+    - 6-add-workers
 
 - hosts: k8s-master
   vars_files:
     - group_vars/all
   roles:
-    - 6-nodes-status
+    - 7-nodes-status

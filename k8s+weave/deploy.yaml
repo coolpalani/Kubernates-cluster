@@ -32,7 +32,7 @@
   roles:
     - 4-pod-network-install
 
-- hosts: k8s-worker
+- hosts: k8s-workers
   become: true
   become_method: sudo
   vars_files:

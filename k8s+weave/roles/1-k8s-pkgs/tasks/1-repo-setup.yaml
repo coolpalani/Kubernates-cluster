@@ -20,6 +20,8 @@
   with_items:
     - apt-transport-https
     - curl
+    - ebtables
+    - ethtool
   ignore_errors: false
 
 - name: Check if kubernetes repo file already presented

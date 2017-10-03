@@ -16,19 +16,19 @@
   ignore_errors: true
 
 - name: Initialize kubernetes masters
-  shell: kubeadm init > /tmp/kubeadm-init.txt
+  shell: kubeadm init > /var/tmp/kubeadm-init.txt
   register: kubeadm_init
   ignore_errors: false
 
 - name: Get kubernetes Initialization msg
-  shell: cat /tmp/kubeadm-init.txt
+  shell: cat /var/tmp/kubeadm-init.txt
   register: k8s_init_output
   when: kubeadm_init | succeeded
 - debug:
     var: k8s_init_output.stdout
 
 - name: Store "kubeadm join token" to a shell script
-  shell: cat /tmp/kubeadm-init.txt |grep -i "kubeadm join" > /tmp/k8s-join.sh
+  shell: cat /var/tmp/kubeadm-init.txt |grep -i "kubeadm join" > /tmp/k8s-join.sh
   register: token_store
   when: kubeadm_init | succeeded
   ignore_errors: false

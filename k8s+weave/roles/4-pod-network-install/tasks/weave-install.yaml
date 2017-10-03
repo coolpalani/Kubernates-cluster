@@ -9,7 +9,7 @@
   register: deploy_weave
   ignore_errors: false
 
-- name: Waiting for weave pods to get initialized successfully
+- name: Waiting for weave pods to get initialized
   script: pods-waiting-check.sh
   register: pod_script_check
   when: deploy_weave | succeeded
